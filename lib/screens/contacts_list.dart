@@ -1,4 +1,4 @@
-import 'package:bytebank2/database/app_database.dart';
+import 'package:bytebank2/dao/contact_dao.dart';
 import 'package:bytebank2/models/contact.dart';
 import 'package:bytebank2/screens/contact_form.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,8 @@ class ContactList extends StatefulWidget {
   @override
   _ContactListState createState() => _ContactListState();
 }
+
+final ContactDao _dao = ContactDao();
 
 class _ContactListState extends State<ContactList> {
   @override
@@ -17,7 +19,7 @@ class _ContactListState extends State<ContactList> {
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: [],
-        future: findAll(),
+        future: _dao.findAll(),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.none:
@@ -34,7 +36,6 @@ class _ContactListState extends State<ContactList> {
                   ],
                 ),
               );
-              break;
             case ConnectionState.active:
               // usado em casos de download, stream, algo a ser monitorado
               break;
@@ -60,7 +61,7 @@ class _ContactListState extends State<ContactList> {
               .push(MaterialPageRoute(
                 builder: (context) => ContactForm(),
               ))
-              .then((newContact) => debugPrint(newContact.toString()));
+              .then((value) => setState(() {}));
         },
         child: Icon(Icons.add),
       ),
