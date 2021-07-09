@@ -1,3 +1,5 @@
+import 'package:bytebank2/database/app_database.dart';
+import 'package:bytebank2/models/contact.dart';
 import 'package:bytebank2/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
@@ -13,25 +15,44 @@ class _ContactListState extends State<ContactList> {
       appBar: AppBar(
         title: Text('Contacts'),
       ),
-      body: ListView(
-        children: <Widget>[
-          Card(
-            child: ListTile(
-              title: Text(
-                'Enaile',
-                style: TextStyle(
-                  fontSize: 24,
+      body: FutureBuilder<List<Contact>>(
+        initialData: [],
+        future: findAll(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              //qnd o future ainda nao foi executado
+              break;
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading'),
+                  ],
                 ),
-              ),
-              subtitle: Text(
-                '1000',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          )
-        ],
+              );
+              break;
+            case ConnectionState.active:
+              // usado em casos de download, stream, algo a ser monitorado
+              break;
+            case ConnectionState.done:
+              final List<Contact> contacts = snapshot.data as List<Contact>;
+              if (snapshot.data != null) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final contact = contacts[index];
+                    return _ContactItem(contact);
+                  },
+                  itemCount: contacts.length,
+                );
+              }
+              break;
+          }
+          return Text('Unknow error');
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -42,6 +63,32 @@ class _ContactListState extends State<ContactList> {
               .then((newContact) => debugPrint(newContact.toString()));
         },
         child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class _ContactItem extends StatelessWidget {
+  final Contact contact;
+
+  _ContactItem(this.contact);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        title: Text(
+          contact.name,
+          style: TextStyle(
+            fontSize: 24,
+          ),
+        ),
+        subtitle: Text(
+          contact.account.toString(),
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
       ),
     );
   }
