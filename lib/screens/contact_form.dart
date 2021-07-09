@@ -47,7 +47,7 @@ class ContactForm extends StatelessWidget {
                     final String name = _nameControler.text;
                     final int? account =
                         int.tryParse(_accountNumberController.text);
-                    final Contact newContact = Contact(name, account);
+                    final Contact newContact = Contact(0, name, account);
                     Navigator.pop(context, newContact);
                   },
                   child: Text('Create'),
