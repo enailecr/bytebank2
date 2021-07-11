@@ -6,18 +6,18 @@ class ContactDao {
   static const String tableSql = 'CREATE TABLE $_tableName('
       '$_id INTEGER PRIMARY KEY, '
       '$_name TEXT, '
-      '$_account_number INTEGER)';
+      '$_accountNumber INTEGER)';
 
   static const String _tableName = 'contacts';
   static const String _id = 'id';
   static const String _name = 'name';
-  static const String _account_number = 'account_number';
+  static const String _accountNumber = 'accountNumber';
 
   Future<int> save(Contact contact) async {
     final Database db = await getDatabase();
     final Map<String, dynamic> contactMap = Map();
     contactMap[_name] = contact.name;
-    contactMap[_account_number] = contact.account;
+    contactMap[_accountNumber] = contact.accountNumber;
     return db.insert(_tableName, contactMap);
   }
 
@@ -35,7 +35,7 @@ class ContactDao {
       final Contact contact = Contact(
         row[_id],
         row[_name],
-        row[_account_number],
+        row[_accountNumber],
       );
       contacts.add(contact);
     }

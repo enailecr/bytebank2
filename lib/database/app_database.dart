@@ -3,14 +3,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 Future<Database> getDatabase() async {
-  final String path = join(await getDatabasesPath(), 'bytebank.db');
-
+  print(getDatabasesPath());
+  final String path = join(await getDatabasesPath(), 'bytebank2.db');
   return openDatabase(
     path,
     onCreate: (db, version) {
       db.execute(ContactDao.tableSql);
     },
     version: 1,
-    // onDowngrade: onDatabaseDowngradeDelete,
+    // onUpgrade: onDatabaseDowngradeDelete,
   );
 }
