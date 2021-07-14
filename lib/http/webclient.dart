@@ -11,7 +11,7 @@ final Client client = InterceptedClient.build(
   interceptors: [LoggingInterceptor()],
 );
 
-const String baseUrl = 'http://192.168.1.3:8080/transactions';
+const String baseUrl = 'http://192.168.1.5:8080/transactions';
 
 Future<List<Transaction>> findAll() async {
   final Response response =
