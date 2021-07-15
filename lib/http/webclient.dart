@@ -9,13 +9,13 @@ import 'interceptors/logging_interceptors.dart';
 
 final Client client = InterceptedClient.build(
   interceptors: [LoggingInterceptor()],
+  requestTimeout: Duration(seconds: 5),
 );
 
-const String baseUrl = 'http://192.168.1.5:8080/transactions';
+const String baseUrl = 'http://192.168.1.3:8080/transactions';
 
 Future<List<Transaction>> findAll() async {
-  final Response response =
-      await client.get(Uri.parse(baseUrl)).timeout(Duration(seconds: 5));
+  final Response response = await client.get(Uri.parse(baseUrl));
   final List<dynamic> decodedJson = jsonDecode(response.body);
   final List<Transaction> transactions = [];
   for (Map<String, dynamic> transactionJson in decodedJson) {
