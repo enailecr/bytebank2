@@ -8,6 +8,7 @@ import 'package:bytebank2/models/contact.dart';
 import 'package:bytebank2/models/transaction.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 class TransactionForm extends StatefulWidget {
@@ -157,7 +158,26 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _showFailureMessage(BuildContext context,
       [String message = 'Unknown error']) {
-    showDialog(
-        context: context, builder: (contextDialog) => FailureDialog(message));
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    // showDialog(
+    //     context: context,
+    //     builder: (_) => NetworkGiffyDialog(
+    //           image: Image.asset('images/ERROR.gif'),
+    //           title: Text('OPSS',
+    //               textAlign: TextAlign.center,
+    //               style:
+    //                   TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600)),
+    //           description: Text(
+    //             message,
+    //             textAlign: TextAlign.center,
+    //           ),
+    //           entryAnimation: EntryAnimation.TOP,
+    //           onOkButtonPressed: () {},
+    //         ));
+
+    // showDialog(
+    //     context: context, builder: (contextDialog) => FailureDialog(message));
   }
 }
