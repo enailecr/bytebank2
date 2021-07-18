@@ -1,8 +1,6 @@
 import 'dart:async';
 
-import 'package:bytebank2/screens/counter.dart';
 import 'package:bytebank2/screens/dashboard.dart';
-import 'package:bytebank2/screens/name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -44,7 +42,7 @@ class BytebankApp extends StatelessWidget {
     Bloc.observer = BlocObserver();
     return MaterialApp(
       theme: bytebankTheme,
-      home: Dashboard(),
+      home: DashboardContainer(),
     );
   }
 }
