@@ -8,7 +8,6 @@ import 'package:bytebank2/models/contact.dart';
 import 'package:bytebank2/models/transaction.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:uuid/uuid.dart';
 
 class TransactionForm extends StatefulWidget {

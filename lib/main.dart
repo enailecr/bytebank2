@@ -1,10 +1,15 @@
 import 'dart:async';
 
+import 'package:bytebank2/screens/counter.dart';
 import 'package:bytebank2/screens/dashboard.dart';
+import 'package:bytebank2/screens/name.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'components/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,15 +41,9 @@ void main() async {
 class BytebankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Bloc.observer = BlocObserver();
     return MaterialApp(
-      theme: ThemeData(
-        primaryColor: Colors.green[900],
-        accentColor: Colors.blueAccent[700],
-        buttonTheme: ButtonThemeData(
-          buttonColor: Colors.blueAccent[700],
-          textTheme: ButtonTextTheme.primary,
-        ),
-      ),
+      theme: bytebankTheme,
       home: Dashboard(),
     );
   }
