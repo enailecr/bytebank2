@@ -36,17 +36,17 @@ class DashboardView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _FeatureItem(
+                FeatureItem(
                   'Tranfer',
                   Icons.monetization_on,
                   onClick: () => _showContactsList(context),
                 ),
-                _FeatureItem(
+                FeatureItem(
                   'Transaction Feed',
                   Icons.description,
                   onClick: () => _showTransactionsList(context),
                 ),
-                _FeatureItem(
+                FeatureItem(
                   'Change name',
                   Icons.person_outline,
                   onClick: () => _showChangeName(context),
@@ -83,12 +83,12 @@ void _showChangeName(BuildContext blocContext) {
   );
 }
 
-class _FeatureItem extends StatelessWidget {
+class FeatureItem extends StatelessWidget {
   final String name;
   final IconData icon;
   final Function onClick;
 
-  _FeatureItem(this.name, this.icon, {required this.onClick});
+  FeatureItem(this.name, this.icon, {required this.onClick});
 
   @override
   Widget build(BuildContext context) {

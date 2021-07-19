@@ -9,7 +9,7 @@ class Transaction {
     this.id,
     this.value,
     this.contact,
-  );
+  ) : assert(value != null);
 
   Transaction.fromJson(Map<String, dynamic> json)
       : id = json['id'],
