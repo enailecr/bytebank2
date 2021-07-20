@@ -1,4 +1,5 @@
 import 'package:bytebank2/components/container.dart';
+import 'package:bytebank2/components/localization.dart';
 import 'package:bytebank2/models/name.dart';
 import 'package:bytebank2/screens/contacts_list.dart';
 import 'package:bytebank2/screens/name.dart';
@@ -11,12 +12,19 @@ class DashboardContainer extends BlocContainer {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => NameCubit('Enaile'),
-      child: DashboardView(),
+      child: I18NLoadingContainer(
+          viewKey: "dashboard",
+          creator: (messages) =>
+              DashboardView(DashboardViewLazyI18N(messages))),
     );
   }
 }
 
 class DashboardView extends StatelessWidget {
+  final DashboardViewLazyI18N _i18n;
+
+  DashboardView(this._i18n);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +45,17 @@ class DashboardView extends StatelessWidget {
             child: Row(
               children: [
                 FeatureItem(
-                  'Tranfer',
+                  _i18n.transfer,
                   Icons.monetization_on,
                   onClick: () => _showContactsList(context),
                 ),
                 FeatureItem(
-                  'Transaction Feed',
+                  _i18n.transaction_feed,
                   Icons.description,
                   onClick: () => _showTransactionsList(context),
                 ),
                 FeatureItem(
-                  'Change name',
+                  _i18n.change_name,
                   Icons.person_outline,
                   onClick: () => _showChangeName(context),
                 ),
@@ -58,6 +66,21 @@ class DashboardView extends StatelessWidget {
       ),
     );
   }
+}
+
+class DashboardViewLazyI18N {
+  final I18NMessages _messages;
+
+  DashboardViewLazyI18N(this._messages);
+
+  String get transfer => _messages.get("transfer");
+  // localize({"pt-br": "Transferir", "en": "Transfer"});
+
+  String get transaction_feed => _messages.get("transaction_feed");
+  // localize({"pt-br": "Transações", "en": 'Transaction Feed'});
+
+  String get change_name => _messages.get("change_name");
+  // localize({"pt-br": "Trocar nome", "en": 'Change name'});
 }
 
 void _showContactsList(BuildContext context) {
@@ -126,4 +149,17 @@ class FeatureItem extends StatelessWidget {
       ),
     );
   }
+}
+
+class DashboardViewI18N extends ViewI18N {
+  DashboardViewI18N(BuildContext context) : super(context);
+
+  String get transfer => localize({"pt-br": "Transferir", "en": "Transfer"});
+
+  // _ é para constante. defina se você vai usar também para não constante!
+  String get transaction_feed =>
+      localize({"pt-br": "Transações", "en": "Transaction Feed"});
+
+  String get change_name =>
+      localize({"pt-br": "Mudar nome", "en": 'Change name'});
 }

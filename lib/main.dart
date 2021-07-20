@@ -7,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'components/localization.dart';
 import 'components/theme.dart';
 
 void main() async {
@@ -42,7 +43,7 @@ class BytebankApp extends StatelessWidget {
     Bloc.observer = BlocObserver();
     return MaterialApp(
       theme: bytebankTheme,
-      home: DashboardContainer(),
+      home: LocalizationContainer(child: DashboardContainer()),
     );
   }
 }

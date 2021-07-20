@@ -32,6 +32,7 @@ dependencies:
   firebase_crashlytics: ^2.1.1
   giffy_dialog: ^1.8.0
   flutter_bloc:
+  localstorage:
 
 
   # The following adds the Cupertino Icons font to your application.
